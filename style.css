@@ -1,3 +1,6 @@
+/* Brandless wordmark — match brandless.io ("Brandless." in Instrument Serif). */
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif&display=swap');
+
 :root {
   --default-border-color: var(--gray-200);
 }
@@ -146,4 +149,16 @@ body:has([data-product-guide-index]) #sidebar a.nav-anchor[href='/'] svg {
 img.nav-logo {
   max-width: 220px;
   height: auto;
+}
+
+/* The text wordmark in the navbar: render like the brandless.io <span class="font-display"> */
+.nav-logo {
+  font-family: 'Instrument Serif', Georgia, 'Times New Roman', serif !important;
+  font-weight: 400 !important;
+  letter-spacing: -0.01em;
+  color: #0c0a09 !important;
+}
+
+.dark .nav-logo {
+  color: #fbfaf9 !important;
 }
