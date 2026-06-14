@@ -1,0 +1,59 @@
+---
+title: "Send email from your own address"
+sidebarTitle: "Custom email"
+description: "Send customer emails from your own domain with Growth or Scale plan: add DNS records for verification and customize the sender address."
+---
+
+Send emails from your own address — login and invite emails to your customers come from your domain, not Brandless's default. This keeps everything on-brand and builds trust with your clients. Available on Growth and Scale plans only.
+
+## How it works
+
+When you set up a custom email sender, your customers' login links and workspace invitations are sent from an address like `hello@yourbrand.com` instead of the default Brandless address. Your agency name appears in the "From" field for a fully branded experience.
+
+To enable this, you add a couple of DNS records at your domain registrar to prove you own the domain. Once verified, emails start flowing from your address immediately.
+
+## Steps
+
+<Steps>
+  <Step title="Go to Branding and scroll to Custom email sender">
+    In the dashboard, open **Branding** from the sidebar. Scroll down to the **Custom email sender** section on the right side. If you don't see it, check that your plan is Growth or Scale (the section only appears for eligible plans).
+  </Step>
+
+  <Step title="Enter your sending address">
+    Type the email address you'd like to send from — for example, `hello@yourbrand.com`. It must be on a domain you own. Click **Connect**.
+  </Step>
+
+  <Step title="Copy the DNS records">
+    The app shows you two DNS records (DKIM and SPF) to add at your domain registrar. Each record has a **Name** and **Value** field with a copy button next to it. Click to copy each one separately — you'll paste the Name into one field and the Value into another at your registrar.
+  </Step>
+
+  <Step title="Add records at your domain registrar">
+    Log in to your domain registrar (the service where you bought or manage your domain). Find the DNS settings or zone file editor. Add each record the app shows:
+    - **DKIM record** (type TXT) — copy the Name and Value exactly as shown
+    - **SPF record** (type TXT) — copy the Name and Value exactly as shown
+
+    If prompted for TTL, the default (usually 3600) is fine. Lower values like 300 propagate faster while testing, but standard is 3600.
+  </Step>
+
+  <Step title="Check status">
+    Back in Branding, click **Check status**. DNS changes usually take a few minutes to propagate. The badge next to your email address updates from "Pending verification" to "Verified" once both records are detected.
+  </Step>
+</Steps>
+
+<Note>
+DNS changes take time to propagate globally — often a few minutes, sometimes up to an hour. If **Check status** shows "Not detected yet," wait a moment and try again.
+</Note>
+
+<Warning>
+Don't use a Brandless subdomain (like `yourbrand.brandless.app`) or a throwaway test domain. You must provide an email address on a domain you actually own and can edit DNS records for.
+</Warning>
+
+## What happens next
+
+Once verified, your customers see your domain in the sender field for all login and invite emails. To stop using your custom sender and revert to the default, click **Remove** next to your email address. Emails go back to the Brandless default immediately.
+
+## Related
+
+- [Create an agent](/agents/create)
+- [Getting started](/getting-started/quickstart)
+- [Subscription plans](/billing/subscription)

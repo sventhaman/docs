@@ -1,0 +1,91 @@
+---
+title: "Write a system prompt"
+sidebarTitle: "System prompt"
+description: "Help article explaining how to write an effective system prompt for an AI agent, covering purpose, best practices, and examples."
+---
+
+A system prompt is your agent's instructions—it defines the persona, tone, guardrails, and behavior your agent will follow. Think of it as the briefing your agent reads before every conversation. A well-crafted system prompt is the single biggest lever for making your agent helpful, on-brand, and trustworthy.
+
+Your system prompt can be anything from a few sentences to a detailed playbook. The default is a friendly, concise assistant, but you can customize it completely to match your client's needs, industry, or personality.
+
+## Steps
+
+<Steps>
+<Step title="Open the agent editor">
+Go to the agent you want to configure and click the **System prompt** section on the left side of the editor.
+</Step>
+
+<Step title="Write or edit the system prompt">
+Type your instructions in the text field. Your prompt might cover:
+- **Role**: "You are a customer support specialist for an insurance company"
+- **Tone**: "Be professional but friendly, never robotic"
+- **What to do**: "Answer questions about policy coverage, claim status, and billing"
+- **What not to do**: "Never make promises about coverage; always refer to the policy"
+- **How to handle unknowns**: "If you don't know, say so and offer to connect them with a human agent"
+- **When to escalate**: "If the customer is frustrated or asking for something outside your scope, offer a warm transfer"
+
+Type `{{` to insert custom variables from your first message—useful for personalizing the prompt with client name, timezone, or other dynamic data.
+</Step>
+
+<Step title="Set your timezone (optional)">
+At the bottom right, use the timezone picker to set the default timezone. Your agent will use this to answer questions about times and schedules. This can be overridden per conversation if needed.
+</Step>
+
+<Step title="Test in the playground">
+Switch to the chat or phone playground (on the right side) to test your agent with the new prompt. Try a few realistic scenarios to make sure the tone and behavior feel right. Your edits are drafts until you publish.
+</Step>
+
+<Step title="Publish when ready">
+Once you're happy, publish the agent to make the new system prompt live. Drafts stay in draft mode—they don't affect your live agent or your clients' experience.
+</Step>
+</Steps>
+
+## Best practices
+
+**Be specific, not vague.** Instead of "Be helpful," say "Answer questions about our wireless plans, data add-ons, and billing. Don't promise speeds or coverage—refer to our coverage map."
+
+**Define the scope clearly.** Tell the agent what it can and cannot do. This prevents it from trying to handle questions outside its wheelhouse.
+
+**Handle edge cases.** Anticipate questions the agent might not be able to answer, and tell it what to do: escalate to a human, offer an alternative, or explain a limitation.
+
+**Keep tone consistent.** If your brand is playful, say so. If it's serious and trustworthy, make that clear. The agent will mirror the tone you describe.
+
+**Use examples sparingly.** A few concrete examples can help ("If asked about our return policy, explain we offer 30-day returns") but too many make the prompt noisy.
+
+**Avoid contradictions.** If you tell the agent to be helpful but also to be cautious, make it clear how to balance those. "Helpful within the bounds of our policy" is better.
+
+## Example: customer support prompt
+
+```
+You are a helpful customer support agent for a SaaS project management tool.
+
+Your role: Help users with account questions, setup, billing, and basic troubleshooting.
+
+Tone: Friendly, clear, and encouraging. Avoid jargon; explain features in plain language.
+
+What you can do:
+- Walk users through setup and onboarding
+- Answer questions about billing and plans
+- Help with common issues (reset password, invite team members, export data)
+- Explain features and best practices
+
+What you cannot do:
+- Make promises about features in upcoming releases
+- Refund charges (escalate to the human team)
+- Grant access to a user's account (they must verify their identity first)
+
+When you don't know:
+Say "I'm not sure about that" and ask if they'd like to chat with the team who can help.
+
+If the user is upset or frustrated:
+Acknowledge their concern, apologize for the trouble, and offer to connect them with someone on the team who can help right away.
+
+Keep replies concise—2–3 sentences unless they ask a complex question. Ask follow-up questions to clarify what they need.
+```
+
+## Related
+
+- [Create an agent](/agents/create)
+- [Set the first message](/agents/create)
+- [Test your agent in the playground](/agents/playground)
+- [Draft vs. publish](/agents/publish)

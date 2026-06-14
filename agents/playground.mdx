@@ -1,0 +1,71 @@
+---
+title: "Test in the playground"
+sidebarTitle: "Test your agent"
+description: "Guide to testing your AI agent live with voice and chat in the playground before publishing."
+---
+
+Test your agent live with voice and chat before publishing it to your clients. The playground lets you iterate safely on your draft changes—everything you test is ephemeral and won't affect your live agent.
+
+## What you're testing
+
+The playground runs your **current draft** (all unpublished changes), so you can refine the system prompt, voice, knowledge, and tools without touching what's live. Changes you publish become permanent; everything in the draft is a sandbox.
+
+<Note>
+The playground uses your draft overrides, meaning it respects branch changes if you're working on a branch, and reflects edits to your system prompt, voice, and knowledge base in real time — no save required.
+</Note>
+
+## Steps
+
+<Steps>
+  <Step title="Open the agent and toggle Preview">
+    Navigate to any agent page (Settings, Tools, Knowledge Base, etc.). Click the **Preview** button in the top-right bar to open the live test panel on the right side of your screen.
+  </Step>
+
+  <Step title="Choose your test mode">
+    The preview panel has two tabs at the top:
+    - **Inline** – a built-in chat and voice interface for quick testing
+    - **Widget** – a live preview of the actual widget your clients will see (reflects only published changes)
+    
+    Start with Inline to test your draft.
+  </Step>
+
+  <Step title="Test by voice">
+    Click the phone icon to start a voice call. The playground will begin listening. Speak naturally to your agent and listen to its responses. Check:
+    - Does it follow your system prompt?
+    - Is the voice quality and speed right for your use case?
+    - Does it answer questions correctly?
+    - Are interruptions and turn-taking smooth?
+  </Step>
+
+  <Step title="Test by chat">
+    Type a message in the input box at the bottom and press Enter to send. Chat mode lets you test quickly without waiting for audio synthesis and is useful for checking knowledge-base retrieval or tool responses.
+  </Step>
+
+  <Step title="Review the conversation">
+    Once the call ends, click **View details** to open the full transcript, listen to the recording, and see the agent's reasoning (if enabled in Settings). This helps you spot issues or edge cases.
+  </Step>
+
+  <Step title="Make changes and re-test">
+    Edit your agent (prompt, voice, tools, etc.) and start a new test without closing the preview panel. Your draft changes take effect immediately, so you can iterate in real time.
+  </Step>
+</Steps>
+
+## What to check
+
+- **Prompt adherence** – Does the agent stick to its role and instructions, or does it drift?
+- **Knowledge accuracy** – Does it pull the right information from your knowledge base and synthesize it well?
+- **Tool execution** – If you've added tools, do they fire correctly and does the agent use the results properly?
+- **Voice and tone** – Is the voice natural and on-brand? Does it match the agent's personality?
+- **Error handling** – What happens when you ask something outside its scope, or when a tool fails?
+- **Conversation flow** – Does it feel natural? Are responses concise or rambling?
+
+<Warning>
+The Widget tab only previews the *published* agent. To test your draft changes, stay in the Inline tab. You must publish your agent for the Widget preview to update.
+</Warning>
+
+## Related
+
+- [Create an agent](/agents/create)
+- [Write a system prompt](/agents/system-prompt)
+- [Pick a voice](/agents/voice)
+- [Draft vs. publish](/agents/publish)

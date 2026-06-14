@@ -26,8 +26,54 @@
         "expanded": true,
         "pages": [
           "index",
+          "getting-started/quickstart",
           "getting-started/plans",
           "getting-started/key-terms"
+        ]
+      },
+      {
+        "group": "Your brand",
+        "icon": "palette",
+        "pages": [
+          "your-brand/subdomain",
+          "your-brand/custom-domain",
+          "your-brand/custom-email"
+        ]
+      },
+      {
+        "group": "Clients",
+        "icon": "users",
+        "pages": [
+          "clients/create",
+          "clients/assign-agent"
+        ]
+      },
+      {
+        "group": "Building agents",
+        "icon": "bot",
+        "pages": [
+          "agents/create",
+          "agents/system-prompt",
+          "agents/voice",
+          "agents/playground",
+          "agents/publish"
+        ]
+      },
+      {
+        "group": "Chat & embedding",
+        "icon": "code",
+        "pages": [
+          "chat/embed"
+        ]
+      },
+      {
+        "group": "Account & billing",
+        "icon": "credit-card",
+        "pages": [
+          "billing/subscription",
+          "billing/usage",
+          "billing/add-credits",
+          "billing/trial"
         ]
       }
     ]

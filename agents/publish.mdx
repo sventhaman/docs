@@ -1,0 +1,48 @@
+---
+title: "Draft vs publish"
+sidebarTitle: "Draft & publish"
+description: "Explains the draft and publish workflow for agents: how edits are saved as drafts, publishing makes changes live, and discarding reverts to the last published version."
+---
+
+Every change you make to an agent is saved as a **draft** — live edits stored locally until you decide to publish. This protects your live conversations: you can test, experiment, and refine your agent's configuration without affecting clients until you're ready.
+
+## How it works
+
+When you edit your agent, changes are saved automatically to the draft. A **Draft** badge appears in the top-right corner of the editor, signaling that your current configuration differs from the live, published version your clients are using.
+
+Once you're satisfied with your changes, you publish them by clicking the **Publish** button. This makes the draft live:
+
+- The configuration goes live to the client
+- A new version is created in the agent's history (so you can roll back later if needed)
+- The draft is cleared — the badge disappears
+
+If you change your mind, click the **Draft** badge or the dropdown arrow next to **Publish** and select **Discard changes**. This instantly reverts all your edits to the last published state — nothing is lost; you're just going back to what was live.
+
+<Steps>
+<Step title="Make your edits">
+  Update any agent configuration: system prompt, voice, first message, language, or advanced settings. Each change auto-saves to the draft.
+</Step>
+<Step title="Review your changes">
+  Click **Publish**. A dialog shows every field that changed since the last publish, so you can see exactly what will go live.
+</Step>
+<Step title="Optionally add a version description">
+  Type a brief note like "Updated tone to be more casual" so you (or your team) remember what changed in this version. This is optional but helpful for keeping track of iterations.
+</Step>
+<Step title="Publish or discard">
+  Click **Publish** to make changes live, or **Discard changes** to revert to the last published state.
+</Step>
+</Steps>
+
+<Note>
+Every publish creates a version on the **Main** branch. You can see the full version history and roll back to any previous version from the **View all branches** menu.
+</Note>
+
+<Note>
+If you're testing on a separate branch, every save automatically creates a version—there's no draft layer on branches. You can safely experiment without worrying about affecting your live configuration.
+</Note>
+
+## Related
+
+- [Create an agent](/agents/create)
+- [Test your agent in the playground](/agents/playground)
+- [View and roll back versions](/agents/publish)

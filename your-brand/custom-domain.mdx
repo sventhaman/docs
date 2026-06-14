@@ -1,0 +1,80 @@
+---
+title: "Connect a custom domain"
+sidebarTitle: "Custom domain"
+description: "Guide to connecting a custom domain for your customer dashboard, including subdomain setup and DNS record configuration."
+---
+
+Connect your own domain (like app.yourbrand.com) so your customers sign in and access their dashboard at your brand, not ours. Any plan can use this feature.
+
+## Why connect a custom domain?
+
+A custom domain keeps your branding consistent and builds trust with your customers. They'll see your own domain in the browser and login URL instead of a subdomain on our platform.
+
+## Before you start
+
+You'll need access to your domain registrar's DNS settings (where you manage your domain's records). The process is self-serve and takes just a few minutes once DNS propagates.
+
+## Steps
+
+<Steps>
+
+<Step title="Enter your domain">
+Go to **Branding** in the sidebar, find the **Custom domain** section, and enter your domain in the field. A subdomain like **app.yourbrand.com** is simplest — it requires just one DNS record and gets instant SSL coverage. Apex domains (yourbrand.com) also work but require different setup.
+
+Click **Connect** to add it to our platform.
+</Step>
+
+<Step title="Copy the DNS record">
+You'll see one or more DNS records to add at your registrar. Each record shows:
+- **Type** — usually CNAME (for subdomains) or A (for apex domains)
+- **Name** — copy this into your registrar's "Host" or "Name" field
+- **Value** — copy this into the "Target" or "Value" field
+- **TTL** — typically 3600 (one hour); lower values like 300 propagate faster while testing
+
+Use the copy buttons next to each field to grab exactly what you need. You don't copy the whole record at once — just the Name, then the Value, into your registrar's form.
+</Step>
+
+<Step title="Add the record at your registrar">
+Log in to your domain registrar (GoDaddy, Namecheap, Route 53, etc.) and add the DNS record shown. The steps vary by registrar, but you'll typically:
+1. Open your domain's DNS settings
+2. Create a new record of the type shown (CNAME or A)
+3. Paste the Name and Value from our form
+4. Set TTL (or leave it at the default)
+5. Save
+
+DNS changes take a few minutes to propagate worldwide.
+</Step>
+
+<Step title="Check the status">
+Once you've added the record, come back and click **Check status** below the DNS fields. We'll verify that your domain is connected. If it's not ready yet, you'll see a "Pending verification" badge — DNS just needs more time to propagate. Check again in a minute or two.
+</Step>
+
+<Step title="You're live">
+Once verified, you'll see a green "Connected" badge and a link to your customer dashboard. Your customers can now sign in at your custom domain (for example, app.yourbrand.com/login).
+</Step>
+
+<Step title="Optional: remove the domain">
+If you ever want to disconnect, click **Remove** next to the domain. Your customer dashboard goes back to your default brandless.app subdomain, and the domain is removed from our platform. You can reconnect it anytime.
+</Step>
+
+</Steps>
+
+## Subdomains vs. apex domains
+
+**Subdomains (recommended):** app.yourbrand.com needs a CNAME record — one line, instant SSL, no extra steps.
+
+**Apex domains:** yourbrand.com needs an A record and typically requires additional verification. We recommend using a subdomain instead for simplicity.
+
+<Note>
+TTL can be any value. 3600 (one hour) is standard, but during setup you can use 300 to see changes faster while testing. Once everything is verified, you can go back to 3600.
+</Note>
+
+<Warning>
+DNS propagation takes a few minutes worldwide. If "Check status" shows "Pending verification," wait a bit and try again. Don't add the record multiple times — one is enough.
+</Warning>
+
+## Related
+
+- [Branding your dashboard](/your-brand/subdomain)
+- [Custom email sender](/your-brand/custom-email)
+- [Plans and billing](/getting-started/plans)

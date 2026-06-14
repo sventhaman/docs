@@ -1,0 +1,81 @@
+---
+title: "Pick a voice & language"
+sidebarTitle: "Voice & language"
+description: "Guide to selecting voices and languages for your conversational agent with preview, filtering, and model options."
+---
+
+Your agent needs a voice and language to communicate with customers. Here you'll pick from thousands of professional voices, preview them, and configure the AI model that powers the speech generation.
+
+## Steps
+
+<Steps>
+<Step title="Open the voice settings">
+In the agent editor, scroll to the **Agent voice** section and click the row showing your current voice (or "Select a voice" if you haven't picked one yet). A panel opens on the right side.
+</Step>
+
+<Step title="Search and filter the voice library">
+The library shows two categories:
+- **Premade** — The most popular voices (Rachel, Sarah, Adam, etc.), always available.
+- **Community library** — 5000+ voices contributed by users, with rich metadata.
+
+Use the search bar to find a voice by name. Refine results with these filters:
+- **Quality tier** — Choose "Professional," "High quality," "Famous," or "Any quality" (default).
+- **Language** — Filter voices that support a specific language. Defaults to "Any language."
+- **Gender** — Show only Female, Male, Neutral, or all genders.
+
+Tap "Clear" to reset all filters at once.
+</Step>
+
+<Step title="Preview a voice">
+Click the play button next to any voice to hear a sample. Click again to pause. Only voices with a preview URL can be played.
+</Step>
+
+<Step title="Pick your voice">
+Click on a voice name (or its metadata row) to select it. A checkmark appears. The panel closes and your voice is now set.
+</Step>
+
+<Step title="Choose your TTS model">
+Below the voice picker, select the **TTS model family**:
+- **V3 Conversational** — Highest quality and most expressive. Best for engaging conversations.
+- **Flash** — Lowest latency; responds the fastest. Best for snappy back-and-forth.
+- **Multilingual** — Balanced quality across 29 languages. Single model handles your language list.
+
+The model you pick affects how well your voice adapts to different languages and the fine-tuning options available.
+</Step>
+
+<Step title="Configure stability, speed, and similarity (optional)">
+If you selected Flash or Multilingual, you'll see three sliders:
+- **Stability** — "More expressive" (0) lets the voice vary its tone; "More consistent" (1) keeps it steady.
+- **Speed** — Adjust playback speed from slower (0.7x) to faster (1.2x).
+- **Similarity** — "Low" (0) uses a more generic timbre; "High" (1) closely matches the original voice.
+
+(V3 Conversational doesn't expose these; use **Expressive mode** instead to add emotional inflection.)
+</Step>
+
+<Step title="Set primary and additional languages">
+Below the voice settings, configure which languages your agent speaks:
+- Click your **primary language** row to pick the main language. This is where customers will start conversations.
+- Tap **+ Add additional languages** to enable extra languages. The agent can switch between them based on customer input or context.
+
+Languages appear with their flag emoji for quick recognition—for example, "Norwegian" or "Spanish." You can remove any additional language by clicking the X button.
+</Step>
+</Steps>
+
+<Note>
+**Preview URL and category tips**
+- If a voice doesn't have a preview URL, the play button is disabled.
+- The "Premade" voices are the most stable and widely used; they're a good starting point if you're unsure.
+- Community voices are curated and tagged with accent, gender, age, and use case (e.g., "friendly," "narrator") to help you find the right fit.
+</Note>
+
+<Warning>
+**Model and language compatibility**
+- Not all models support all 29 languages equally. The Multilingual family is designed for broad language coverage; V3 Conversational excels at a smaller set.
+- Check your agent's voice settings after changing the model family, especially if you use multiple languages—quality may vary per language/model pair.
+</Warning>
+
+## Related
+
+- [Create an agent](/agents/create)
+- [Write your system prompt](/agents/system-prompt)
+- [Publish your agent](/agents/publish)

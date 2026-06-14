@@ -1,0 +1,65 @@
+---
+title: "Embed the chat widget"
+sidebarTitle: "Embed the widget"
+description: "Learn how to embed your agent's chat widget on your website to let visitors chat with AI without leaving the page."
+---
+
+Embedding the chat widget on your website is how your clients let their users chat with your AI agents directly on their site. Once embedded, the widget appears as a conversation bubble or panel, giving end-users a frictionless way to get help.
+
+## Before you start
+
+Make sure you've [created an agent](/agents/create) and published it to live. The agent needs to be in a live state (not a draft) for the embed to work.
+
+## Steps
+
+<Steps>
+
+<Step title="Go to the Widget tab for your agent">
+From the Agents list, select your agent, then click the **Widget** tab in the left panel.
+</Step>
+
+<Step title="Copy the embed code">
+In the **Setup** section, you'll see a code block labeled **Embed code** — a short HTML snippet (a widget element plus a loader script). Click the **Copy** button next to it to copy it to your clipboard.
+
+It's ready to paste as-is — no changes needed.
+</Step>
+
+<Step title="Paste the code into your website">
+Open your website's HTML source. Find the page where you want the widget to appear, and paste the snippet before the closing `</body>` tag (or anywhere in the `<body>`). Most website builders have a "Custom code" or "HTML embed" option for pages or site-wide headers.
+
+If you're using a platform like WordPress, Webflow, or Squarespace, look for a code-embed block or footer settings where you can add custom HTML.
+</Step>
+
+<Step title="Test the widget">
+Refresh your website. The widget should appear in the bottom-right corner (or your chosen placement). Click it to start a conversation.
+</Step>
+
+</Steps>
+
+## Customization
+
+The Widget tab offers many ways to control how the chat widget looks and behaves:
+
+- **Variant** — Choose between Tiny (icon only), Compact (reduced height), Full (standard), or Expandable (collapsed by default).
+- **Placement** — Pick which corner it appears in: top-left, top, top-right, bottom-left, bottom, or bottom-right.
+- **Appearance** — Customize colors, button radius, avatar (animated orb, image, or URL), and whether the banner is visible.
+- **Interface** — Toggle voice mode, text-only chat, microphone muting, transcripts, and language selection.
+- **Terms & conditions** — Require users to accept terms before starting a conversation.
+- **Text content** — Override labels like "Need help?" and "Send" with your own wording.
+
+All changes are saved automatically. Refresh your embedded page to see updates live.
+
+<Note>
+The widget uses the same voice and system prompt you configured for your agent. If you update your agent's system prompt or voice in the Settings tab, those changes appear in the embedded widget right away.
+</Note>
+
+<Warning>
+Paste the whole snippet exactly as copied — it includes a loader script the widget needs to run. Don't edit or shorten any part of it.
+</Warning>
+
+## Related
+
+- [Create an agent](/agents/create)
+- [Pick a voice & language](/agents/voice)
+- [Publish your agent](/agents/publish)
+- [What is Brandless](/)
