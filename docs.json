@@ -15,7 +15,7 @@
     "heading": { "family": "Inter" },
     "body": { "family": "Inter" }
   },
-  "favicon": "/favicon.ico",
+  "favicon": "/favicon.svg",
   "icons": {
     "library": "lucide"
   },
