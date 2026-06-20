@@ -1,0 +1,36 @@
+---
+title: "Charge clients & pass through usage"
+sidebarTitle: "Charge your clients"
+description: "Help article explaining how to assign a billing plan to a client on Brandless, charge recurring subscriptions, and pass through metered usage on the Scale plan."
+---
+
+After you've [connected Stripe](/client-billing/connect-stripe) and created a product, you assign that product to a client to start billing them. Your client subscribes through Stripe Checkout, and the charge goes straight to your account.
+
+## Steps
+
+<Steps>
+  <Step title="Open the client's Billing tab">
+    Go to **Clients**, open the client, and select the **Billing** tab.
+  </Step>
+
+  <Step title="Assign a plan">
+    Pick one of your products and assign it. Your client gets a secure Stripe Checkout link to start their subscription; once they pay, their workspace is unlocked.
+  </Step>
+
+  <Step title="Manage the subscription">
+    From the same tab you can see subscription status and let the client manage their own card and invoices through Stripe's customer portal.
+  </Step>
+</Steps>
+
+## Pass through usage (Scale)
+
+On the **Scale** plan you can also bill clients for what they actually use. When you create or edit a product, turn on **Bill usage on top** and set:
+
+- **Markup multiplier** — what the client pays per dollar of real voice + chat usage (e.g. ×2).
+- **Included per period** — an allowance covered by the subscription before overage is billed.
+
+Each billing period, the client's overage is added to their invoice automatically.
+
+<Note>
+  Plain subscriptions work on every plan. The **metered usage** passthrough is a Scale-plan feature — upgrade to turn it on.
+</Note>

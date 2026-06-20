@@ -74,6 +74,22 @@
         ]
       },
       {
+        "group": "Calendar",
+        "icon": "calendar",
+        "pages": [
+          "calendar/calendar",
+          "calendar/booking-page"
+        ]
+      },
+      {
+        "group": "Billing your clients",
+        "icon": "wallet",
+        "pages": [
+          "client-billing/connect-stripe",
+          "client-billing/bill-clients"
+        ]
+      },
+      {
         "group": "Account & billing",
         "icon": "credit-card",
         "pages": [
