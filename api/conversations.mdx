@@ -1,0 +1,170 @@
+---
+title: "Conversations"
+sidebarTitle: "Conversations"
+description: "List conversations and fetch a single conversation with its full transcript through the Brandless API."
+---
+
+Conversations are the calls and chats your agents have handled. Use these endpoints to pull call logs into your own CRM or analytics.
+
+## List conversations
+
+Returns conversations across your agents, newest first, with cursor pagination.
+
+```
+GET /conversations
+```
+
+<ParamField query="agentId" type="string">
+  Filter to one agent. Use the agent's `providerAgentId` (from [List agents](/api/agents)).
+</ParamField>
+
+<ParamField query="callSuccessful" type="string">
+  Filter by outcome: `success`, `failure`, or `unknown`.
+</ParamField>
+
+<ParamField query="pageSize" type="number" default="30">
+  Results per page, 1–100.
+</ParamField>
+
+<ParamField query="cursor" type="string">
+  The `nextCursor` from a previous response, to fetch the next page.
+</ParamField>
+
+<RequestExample>
+```bash cURL
+curl "https://intent-weasel-655.eu-west-1.convex.site/api/v1/conversations?pageSize=20" \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+</RequestExample>
+
+<ResponseField name="data" type="array">
+  <Expandable title="conversation">
+    <ResponseField name="conversationId" type="string">The conversation's unique id.</ResponseField>
+    <ResponseField name="agentId" type="string">The voice-provider agent id that handled it.</ResponseField>
+    <ResponseField name="agentName" type="string | null">The agent's name.</ResponseField>
+    <ResponseField name="startTimeUnixSecs" type="number">Start time as a Unix timestamp (seconds).</ResponseField>
+    <ResponseField name="callDurationSecs" type="number">Duration in seconds.</ResponseField>
+    <ResponseField name="messageCount" type="number">Number of messages exchanged.</ResponseField>
+    <ResponseField name="status" type="string">The conversation status.</ResponseField>
+    <ResponseField name="callSuccessful" type="string">`success`, `failure`, or `unknown`.</ResponseField>
+    <ResponseField name="callSummaryTitle" type="string | null">A short generated title.</ResponseField>
+    <ResponseField name="mainLanguage" type="string | null">The primary language detected.</ResponseField>
+    <ResponseField name="direction" type="string | null">`inbound`, `outbound`, or `null`.</ResponseField>
+    <ResponseField name="rating" type="number | null">Rating, if any.</ResponseField>
+  </Expandable>
+</ResponseField>
+<ResponseField name="nextCursor" type="string | null">Pass back as `cursor` to get the next page.</ResponseField>
+<ResponseField name="hasMore" type="boolean">Whether more pages remain.</ResponseField>
+
+<ResponseExample>
+```json Response
+{
+  "data": [
+    {
+      "conversationId": "conv_2601...",
+      "agentId": "agent_7901...",
+      "agentName": "Front desk",
+      "startTimeUnixSecs": 1751880000,
+      "callDurationSecs": 74,
+      "messageCount": 12,
+      "status": "done",
+      "callSuccessful": "success",
+      "callSummaryTitle": "Booked a cleaning",
+      "mainLanguage": "en",
+      "direction": "inbound",
+      "rating": null
+    }
+  ],
+  "nextCursor": "abc123",
+  "hasMore": true
+}
+```
+</ResponseExample>
+
+<Note>
+Keep following `nextCursor` until `hasMore` is `false`. A page can occasionally come back empty while `hasMore` is `true` — that's expected; just request the next page.
+</Note>
+
+## Get a conversation
+
+Returns one conversation with its full transcript and analysis.
+
+```
+GET /conversations/{id}
+```
+
+<ParamField path="id" type="string" required>
+  The conversation id.
+</ParamField>
+
+<ResponseField name="id" type="string">The conversation id.</ResponseField>
+<ResponseField name="agentId" type="string">The voice-provider agent id.</ResponseField>
+<ResponseField name="agentName" type="string | null">The agent's name.</ResponseField>
+<ResponseField name="status" type="string">The conversation status.</ResponseField>
+<ResponseField name="startTimeUnixSecs" type="number">Start time (Unix seconds).</ResponseField>
+<ResponseField name="callDurationSecs" type="number">Duration in seconds.</ResponseField>
+<ResponseField name="callCostUsd" type="number | null">Estimated cost of the call in US dollars.</ResponseField>
+<ResponseField name="callSuccessful" type="string">`success`, `failure`, or `unknown`.</ResponseField>
+<ResponseField name="summary" type="string | null">A summary of the conversation.</ResponseField>
+<ResponseField name="title" type="string | null">A short generated title.</ResponseField>
+<ResponseField name="mainLanguage" type="string | null">The primary language detected.</ResponseField>
+<ResponseField name="direction" type="string | null">`inbound`, `outbound`, or `null`.</ResponseField>
+<ResponseField name="phoneCall" type="object | null">
+  <Expandable title="properties">
+    <ResponseField name="direction" type="string">`inbound` or `outbound`.</ResponseField>
+    <ResponseField name="externalNumber" type="string">The other party's number.</ResponseField>
+    <ResponseField name="agentNumber" type="string">The agent's number.</ResponseField>
+  </Expandable>
+</ResponseField>
+<ResponseField name="dynamicVariables" type="object">Variables passed into the agent at the start of the call.</ResponseField>
+<ResponseField name="dataCollection" type="array">
+  <Expandable title="item">
+    <ResponseField name="name" type="string">The data point's name.</ResponseField>
+    <ResponseField name="value" type="string | null">The collected value.</ResponseField>
+  </Expandable>
+</ResponseField>
+<ResponseField name="transcript" type="array">
+  <Expandable title="turn">
+    <ResponseField name="role" type="string">`user`, `agent`, or `tool`.</ResponseField>
+    <ResponseField name="message" type="string | null">What was said.</ResponseField>
+    <ResponseField name="timeInCallSecs" type="number">Seconds into the call.</ResponseField>
+  </Expandable>
+</ResponseField>
+
+<RequestExample>
+```bash cURL
+curl https://intent-weasel-655.eu-west-1.convex.site/api/v1/conversations/conv_2601... \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+</RequestExample>
+
+<ResponseExample>
+```json Response
+{
+  "id": "conv_2601...",
+  "agentId": "agent_7901...",
+  "agentName": "Front desk",
+  "status": "done",
+  "startTimeUnixSecs": 1751880000,
+  "callDurationSecs": 74,
+  "callCostUsd": 0.0084,
+  "callSuccessful": "success",
+  "summary": "Caller booked a cleaning for next Tuesday.",
+  "title": "Booked a cleaning",
+  "mainLanguage": "en",
+  "direction": "inbound",
+  "phoneCall": {
+    "direction": "inbound",
+    "externalNumber": "+15551234567",
+    "agentNumber": "+12089745876"
+  },
+  "dynamicVariables": {},
+  "dataCollection": [
+    { "name": "appointment_type", "value": "cleaning" }
+  ],
+  "transcript": [
+    { "role": "agent", "message": "Hi, thanks for calling Acme Dental!", "timeInCallSecs": 0 }
+  ]
+}
+```
+</ResponseExample>

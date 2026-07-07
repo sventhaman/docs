@@ -82,6 +82,18 @@
         ]
       },
       {
+        "group": "API",
+        "icon": "terminal",
+        "pages": [
+          "api/introduction",
+          "api/account",
+          "api/agents",
+          "api/clients",
+          "api/conversations",
+          "api/calls"
+        ]
+      },
+      {
         "group": "Billing your clients",
         "icon": "wallet",
         "pages": [

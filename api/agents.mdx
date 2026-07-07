@@ -1,0 +1,113 @@
+---
+title: "Agents"
+sidebarTitle: "Agents"
+description: "List your AI agents, fetch one by id, and assign an agent to a client through the Brandless API."
+---
+
+Agents are your voice and chat assistants. You build and configure them in the dashboard; the API lets you list them and manage which client each one belongs to.
+
+## List agents
+
+Returns every agent in your agency, newest first.
+
+```
+GET /agents
+```
+
+<RequestExample>
+```bash cURL
+curl https://intent-weasel-655.eu-west-1.convex.site/api/v1/agents \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+</RequestExample>
+
+<ResponseField name="data" type="array">
+  <Expandable title="agent">
+    <ResponseField name="id" type="string">The agent's unique id (use this in other endpoints).</ResponseField>
+    <ResponseField name="name" type="string">The agent's name.</ResponseField>
+    <ResponseField name="clientId" type="string | null">The client this agent is assigned to, or `null` if unassigned.</ResponseField>
+    <ResponseField name="type" type="string">`voice` or `chat`.</ResponseField>
+    <ResponseField name="providerAgentId" type="string">The underlying voice-provider agent id (used to correlate conversations).</ResponseField>
+    <ResponseField name="createdAt" type="string">ISO 8601 creation timestamp.</ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseExample>
+```json Response
+{
+  "data": [
+    {
+      "id": "jd70...",
+      "name": "Front desk",
+      "clientId": "ks70...",
+      "type": "voice",
+      "providerAgentId": "agent_7901...",
+      "createdAt": "2026-06-19T14:00:38.233Z"
+    }
+  ]
+}
+```
+</ResponseExample>
+
+## Get an agent
+
+```
+GET /agents/{id}
+```
+
+<ParamField path="id" type="string" required>
+  The agent id.
+</ParamField>
+
+Returns the same shape as one item in the list above, or `404` if the agent isn't in your workspace.
+
+<RequestExample>
+```bash cURL
+curl https://intent-weasel-655.eu-west-1.convex.site/api/v1/agents/jd70... \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+</RequestExample>
+
+## Assign an agent to a client
+
+<Info>Requires the **Scale** plan (write access).</Info>
+
+Assigns, reassigns, or unassigns an agent. Pass a `clientId` to assign it to that client, or `null` to unassign it.
+
+```
+PATCH /agents/{id}
+```
+
+<ParamField path="id" type="string" required>
+  The agent id.
+</ParamField>
+
+<ParamField body="clientId" type="string | null" required>
+  The client to assign the agent to, or `null` to unassign. The client must belong to your agency.
+</ParamField>
+
+<RequestExample>
+```bash cURL
+curl -X PATCH https://intent-weasel-655.eu-west-1.convex.site/api/v1/agents/jd70... \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{ "clientId": "ks70..." }'
+```
+</RequestExample>
+
+<ResponseExample>
+```json Response
+{
+  "id": "jd70...",
+  "name": "Front desk",
+  "clientId": "ks70...",
+  "type": "voice",
+  "providerAgentId": "agent_7901...",
+  "createdAt": "2026-06-19T14:00:38.233Z"
+}
+```
+</ResponseExample>
+
+<Note>
+Reassigning an agent only moves the agent — its past conversations, knowledge base, and phone numbers stay recorded under the client they were created in.
+</Note>

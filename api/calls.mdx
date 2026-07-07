@@ -1,0 +1,109 @@
+---
+title: "Calls"
+sidebarTitle: "Calls"
+description: "List your phone numbers and place outbound voice calls from an agent through the Brandless API."
+---
+
+Trigger outbound voice calls from your agents — pass details straight into the agent as variables it can use during the conversation. This is the API's automation payoff: fire a call from your own systems when a lead comes in.
+
+## List phone numbers
+
+Returns the phone numbers in your workspace. Use a number's `id` as the `fromPhoneNumberId` when placing a call.
+
+```
+GET /phone-numbers
+```
+
+<RequestExample>
+```bash cURL
+curl https://intent-weasel-655.eu-west-1.convex.site/api/v1/phone-numbers \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+</RequestExample>
+
+<ResponseField name="data" type="array">
+  <Expandable title="phone number">
+    <ResponseField name="id" type="string">The phone number id (use as `fromPhoneNumberId`).</ResponseField>
+    <ResponseField name="number" type="string">The number in E.164 format.</ResponseField>
+    <ResponseField name="label" type="string">Your label for the number.</ResponseField>
+    <ResponseField name="provider" type="string">`twilio`, `sip_trunk`, or `exotel`.</ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseExample>
+```json Response
+{
+  "data": [
+    {
+      "id": "phnum_8901...",
+      "number": "+12089745876",
+      "label": "Front desk line",
+      "provider": "twilio"
+    }
+  ]
+}
+```
+</ResponseExample>
+
+## Place an outbound call
+
+<Info>Requires the **Scale** plan (write access).</Info>
+
+Places a call from the given agent, using one of your phone numbers. Any `dynamicVariables` you pass are available to the agent as `{{variables}}` during the call — for example a lead's name or the reason for the call.
+
+```
+POST /agents/{id}/calls
+```
+
+<ParamField path="id" type="string" required>
+  The agent to call from.
+</ParamField>
+
+<ParamField body="toNumber" type="string" required>
+  The number to call, with country code (e.g. `+15551234567`).
+</ParamField>
+
+<ParamField body="fromPhoneNumberId" type="string" required>
+  The phone number to call from (an `id` from [List phone numbers](#list-phone-numbers)). It must be assigned to this agent.
+</ParamField>
+
+<ParamField body="dynamicVariables" type="object">
+  Key–value pairs passed into the agent as `{{variables}}`. Values may be strings, numbers, or booleans.
+</ParamField>
+
+<ParamField body="firstMessage" type="string">
+  Override the agent's opening line for this call only.
+</ParamField>
+
+<RequestExample>
+```bash cURL
+curl -X POST https://intent-weasel-655.eu-west-1.convex.site/api/v1/agents/jd70.../calls \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "toNumber": "+15551234567",
+    "fromPhoneNumberId": "phnum_8901...",
+    "dynamicVariables": { "name": "Alex", "reason": "demo follow-up" }
+  }'
+```
+</RequestExample>
+
+<ResponseExample>
+```json Response
+{ "conversationId": "conv_2701..." }
+```
+</ResponseExample>
+
+The call is placed and a `202` is returned with the `conversationId`. You can fetch its transcript afterward from [Get a conversation](/api/conversations#get-a-conversation).
+
+### Common errors
+
+| Status | Code | When |
+| --- | --- | --- |
+| 400 | `invalid_request` | Missing `toNumber` / `fromPhoneNumberId`, an unparseable number, or a number not assigned to this agent. |
+| 402 | `insufficient_credits` | The workspace has no credits, so no call was placed. |
+| 404 | `not_found` | The agent doesn't exist in your workspace. |
+
+<Warning>
+Placing a call spends usage credits, just like a call started any other way. Make sure the destination number and agent are correct before calling in a loop.
+</Warning>

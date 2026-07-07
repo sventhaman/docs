@@ -1,0 +1,86 @@
+---
+title: "Account"
+sidebarTitle: "Account"
+description: "Read your agency profile, API tier, and current-period usage through the Brandless API."
+---
+
+Endpoints for your own agency: who you are and how much you've used this period.
+
+## Get your agency
+
+Returns your agency and the API tier your current plan grants.
+
+```
+GET /me
+```
+
+<RequestExample>
+```bash cURL
+curl https://intent-weasel-655.eu-west-1.convex.site/api/v1/me \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+</RequestExample>
+
+<ResponseField name="agency" type="object">
+  <Expandable title="properties">
+    <ResponseField name="id" type="string">Your agency's unique id.</ResponseField>
+    <ResponseField name="name" type="string">Your agency's display name.</ResponseField>
+    <ResponseField name="slug" type="string">Your subdomain slug (`<slug>.brandless.app`).</ResponseField>
+    <ResponseField name="plan" type="string">Your current plan: `starter`, `growth`, or `scale`.</ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="apiTier" type="string">
+  `basic` (read-only) or `advanced` (read and write).
+</ResponseField>
+
+<ResponseExample>
+```json Response
+{
+  "agency": {
+    "id": "j57...",
+    "name": "Acme Agency",
+    "slug": "acme",
+    "plan": "scale"
+  },
+  "apiTier": "advanced"
+}
+```
+</ResponseExample>
+
+## Get usage
+
+Returns your usage for the current billing period, in US dollars.
+
+```
+GET /usage
+```
+
+<RequestExample>
+```bash cURL
+curl https://intent-weasel-655.eu-west-1.convex.site/api/v1/usage \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+</RequestExample>
+
+<ResponseField name="provisioned" type="boolean">Whether billing is set up for this workspace.</ResponseField>
+<ResponseField name="includedUsd" type="number">Usage included with your plan this period.</ResponseField>
+<ResponseField name="usedUsd" type="number">Usage consumed so far this period.</ResponseField>
+<ResponseField name="purchasedUsd" type="number">Additional credits you've purchased.</ResponseField>
+<ResponseField name="availableUsd" type="number">Remaining balance available to spend.</ResponseField>
+<ResponseField name="currentPeriodEnd" type="string | null">ISO 8601 timestamp when the current period ends.</ResponseField>
+<ResponseField name="isTrial" type="boolean">Whether the workspace is on a trial.</ResponseField>
+
+<ResponseExample>
+```json Response
+{
+  "provisioned": true,
+  "includedUsd": 150,
+  "usedUsd": 0.172753,
+  "purchasedUsd": 10,
+  "availableUsd": 159.827247,
+  "currentPeriodEnd": "2027-06-20T10:16:37.992Z",
+  "isTrial": false
+}
+```
+</ResponseExample>

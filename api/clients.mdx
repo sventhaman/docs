@@ -1,0 +1,96 @@
+---
+title: "Clients"
+sidebarTitle: "Clients"
+description: "List, fetch, and create client workspaces through the Brandless API."
+---
+
+Clients are the workspaces you resell under your brand. The API lets you list them, fetch one, and create new ones.
+
+## List clients
+
+Returns every client in your agency, newest first.
+
+```
+GET /clients
+```
+
+<RequestExample>
+```bash cURL
+curl https://intent-weasel-655.eu-west-1.convex.site/api/v1/clients \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+</RequestExample>
+
+<ResponseField name="data" type="array">
+  <Expandable title="client">
+    <ResponseField name="id" type="string">The client's unique id.</ResponseField>
+    <ResponseField name="name" type="string">The client's display name.</ResponseField>
+    <ResponseField name="createdBy" type="string">`admin` (you created it) or `self_serve` (they signed themselves up).</ResponseField>
+    <ResponseField name="createdAt" type="string">ISO 8601 creation timestamp.</ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseExample>
+```json Response
+{
+  "data": [
+    {
+      "id": "ks70...",
+      "name": "Acme Dental",
+      "createdBy": "admin",
+      "createdAt": "2026-06-08T13:22:08.565Z"
+    }
+  ]
+}
+```
+</ResponseExample>
+
+## Get a client
+
+```
+GET /clients/{id}
+```
+
+<ParamField path="id" type="string" required>
+  The client id.
+</ParamField>
+
+Returns the same shape as one item in the list above, or `404` if the client isn't in your workspace.
+
+## Create a client
+
+<Info>Requires the **Scale** plan (write access).</Info>
+
+Creates a new client workspace. Returns the created client with a `201` status.
+
+```
+POST /clients
+```
+
+<ParamField body="name" type="string" required>
+  The client's name (1–100 characters).
+</ParamField>
+
+<RequestExample>
+```bash cURL
+curl -X POST https://intent-weasel-655.eu-west-1.convex.site/api/v1/clients \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{ "name": "Acme Dental" }'
+```
+</RequestExample>
+
+<ResponseExample>
+```json Response
+{
+  "id": "ks7a...",
+  "name": "Acme Dental",
+  "createdBy": "admin",
+  "createdAt": "2026-07-07T09:00:00.000Z"
+}
+```
+</ResponseExample>
+
+<Note>
+Your plan's client limit still applies. If you've reached it, the request returns `400` with an `invalid_request` error explaining the limit.
+</Note>

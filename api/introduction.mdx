@@ -1,0 +1,140 @@
+---
+title: "API introduction"
+sidebarTitle: "Introduction"
+description: "Authenticate and make your first request to the Brandless REST API to read and manage your workspace programmatically."
+---
+
+The Brandless API lets you read and manage your workspace from your own systems: list agents and clients, pull call logs with full transcripts, check usage, create clients, assign agents, and place outbound calls.
+
+It's a plain REST API over HTTPS. Every response is JSON.
+
+## Availability
+
+The API is a plan feature:
+
+- **Growth** — read access (list agents, clients, conversations, usage, phone numbers).
+- **Scale** — read **and** write access (create clients, assign agents, place calls).
+- **Starter / Free** — no API access.
+
+Access is checked on your **current** plan for every request, so if you upgrade or downgrade it takes effect immediately — you never need to re-issue keys.
+
+## Base URL
+
+```
+https://intent-weasel-655.eu-west-1.convex.site/api/v1
+```
+
+<Note>
+You can always copy your exact base URL from **API** in your dashboard sidebar.
+</Note>
+
+## Authentication
+
+Every request is authenticated with an API key sent as a **Bearer token**:
+
+```
+Authorization: Bearer bl_live_xxxxxxxxxxxxxxxx
+```
+
+### Create a key
+
+<Steps>
+<Step title="Open the API page">
+In your dashboard, click **API** in the sidebar. (If you don't see it, your plan doesn't include API access yet.)
+</Step>
+<Step title="Create a key">
+Click **Create key**, give it a name (for example, "Production" or "Zapier"), and click **Create key**.
+</Step>
+<Step title="Copy the secret now">
+Your full key is shown **once**. Copy it and store it somewhere safe — for your security, we never show it again. If you lose it, revoke the key and create a new one.
+</Step>
+</Steps>
+
+<Warning>
+Your API key grants full access to your workspace. Treat it like a password: keep it server-side, never commit it to source control, and never put it in browser or mobile code. If a key leaks, revoke it from the API page immediately.
+</Warning>
+
+## Your first request
+
+```bash
+curl https://intent-weasel-655.eu-west-1.convex.site/api/v1/me \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+```json
+{
+  "agency": {
+    "id": "j57...",
+    "name": "Acme Agency",
+    "slug": "acme",
+    "plan": "scale"
+  },
+  "apiTier": "advanced"
+}
+```
+
+## Rate limits
+
+Each key is limited to **120 requests per minute**. If you exceed it, you get a `429` response with a `Retry-After` header (in seconds):
+
+```json
+{ "error": { "code": "rate_limited", "message": "Too many requests. Slow down." } }
+```
+
+## Errors
+
+Errors return a non-`2xx` status and a JSON body with a stable `code` and a human-readable `message`:
+
+```json
+{ "error": { "code": "invalid_api_key", "message": "This API key is not valid." } }
+```
+
+| Status | Code | Meaning |
+| --- | --- | --- |
+| 400 | `invalid_request` | A required field is missing or a value is invalid. |
+| 401 | `missing_api_key` | No `Authorization: Bearer` header was sent. |
+| 401 | `invalid_api_key` | The key is wrong or has been revoked. |
+| 402 | `insufficient_credits` | The workspace is out of credits (for placing calls). |
+| 403 | `plan_required` | Your plan doesn't include API access. |
+| 403 | `write_forbidden` | Writes require the Scale plan. |
+| 404 | `not_found` | The endpoint or resource doesn't exist. |
+| 429 | `rate_limited` | You've exceeded the rate limit. |
+| 502 | `provider_error` | An upstream provider (e.g. the voice provider) failed. |
+
+## Pagination
+
+List endpoints that can be large — currently **conversations** — use cursor pagination. The response includes `nextCursor` and `hasMore`:
+
+```json
+{ "data": [ ... ], "nextCursor": "abc123", "hasMore": true }
+```
+
+To get the next page, pass the cursor back:
+
+```
+GET /conversations?cursor=abc123
+```
+
+<Note>
+Keep following `nextCursor` until `hasMore` is `false`. A page can occasionally come back with an empty `data` array while `hasMore` is still `true` — that's expected, just request the next page.
+</Note>
+
+## Next
+
+<Columns cols={2}>
+  <Card title="Account" icon="circle-user" href="/api/account">
+    Your agency profile and current usage.
+  </Card>
+  <Card title="Agents" icon="bot" href="/api/agents">
+    List agents and assign them to clients.
+  </Card>
+  <Card title="Clients" icon="users" href="/api/clients">
+    List and create client workspaces.
+  </Card>
+  <Card title="Conversations" icon="messages-square" href="/api/conversations">
+    Pull call logs and transcripts.
+  </Card>
+  <Card title="Calls" icon="phone-outgoing" href="/api/calls">
+    Place outbound calls from an agent.
+  </Card>
+</Columns>
